@@ -1,9 +1,12 @@
 package com.codegym.repository;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class WordList {
+@Repository
+public class WordList implements WordListRepo {
     private static Map<String, String> wordList = new HashMap<>();
 
     static {
@@ -17,11 +20,12 @@ public class WordList {
                 "Tam biet");
     }
 
-    public static Map<String, String> getWordList() {
-        return wordList;
-    }
-
-    public static void setWordList(Map<String, String> wordList) {
-        WordList.wordList = wordList;
+    @Override
+    public String find(String word) {
+        String result = wordList.get(word);
+        if (result != null) {
+            return result;
+        }
+        return "Not found";
     }
 }
